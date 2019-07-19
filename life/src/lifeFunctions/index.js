@@ -68,8 +68,10 @@ function determineNumberOfAliveNeighbors(board, index){
 
  /*
   Rules:
-  If the cell is alive and has 2 or 3 neighbors, then it remains alive. Else it dies.
-  If the cell is dead and has exactly 3 neighbors, then it comes to life. Else if remains dead.
+    Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+    Any live cell with two or three live neighbours lives on to the next generation.
+    Any live cell with more than three live neighbours dies, as if by overpopulation.
+    Any dead cell with three live neighbours becomes a live cell, as if by reproduction.
 */
 
 export function iterateGeneration(board){
@@ -81,7 +83,7 @@ export function iterateGeneration(board){
     if (board[c] && (numNeighbors===2 || numNeighbors===3)){
       newBoard[c] = true
     }else if(!board[c] && numNeighbors===3){
-      newBoard[c] = false
+      newBoard[c] = true
     }else{
       newBoard[c] = false
     }

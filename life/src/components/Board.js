@@ -28,8 +28,6 @@ class Board extends Component {
   render() {
     let {board, isRunning, onClick, toggleUpdateState} = this.props
     console.log('*board re-render*')
-    console.log(this.props.board)
-    //console.log('**')
     return (
       <BoardContainer>
         {board.map((cell, index) => (
