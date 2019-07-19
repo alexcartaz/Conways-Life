@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import { iterateBoard } from '../actions/';
 import styled from 'styled-components';
 
 const ControlsContainer = styled.div`
@@ -17,37 +16,22 @@ const Iterate = styled.button`
 `;
 
 class Controls extends Component {
-  /*
-  constructor(props) {
-    super(props);
-    this.state = {
-      board: props.board,
-      delay: props.delay,
-      isRunning: props.isRunning,
-      generation: props.generation
-    };
-  }
-  */
- /*
-  iterateClick = event => {
-    console.log('*')
+ 
+  handleRandomInitClick = event => {
     if(this.props.isRunning === false){
-      /*
-      this.setState(prevState => {
-        return {
-          ...prevState,
-          generation: prevState.generation+1
-        }
-      });
-      */
-      //this.props.onIterateClick(iterateGeneration(this.state.board), (this.state.generation))
-      //iterateBoard();
- //   }
- // };
+      this.props.onRandomInitClick()
+    }
+  };
 
-  handler = event => {
+  handleIterateClick = event => {
     if(this.props.isRunning === false){
       this.props.onIterateClick()
+    }
+  };
+
+  handleClearClick = event => {
+    if(this.props.isRunning === false){
+      this.props.onClearClick()
     }
   };
 
@@ -56,7 +40,9 @@ class Controls extends Component {
       //<Iterate />
       //// <button onClick={event => this.iterateClick(event)} >Iterate</button>
       <div>
-        <button onClick={event => this.handler(event)} >Iterate</button>
+        <button onClick={event => this.handleRandomInitClick(event)} >Random Init</button>
+        <button onClick={event => this.handleIterateClick(event)} >Iterate</button>
+        <button onClick={event => this.handleClearClick(event)} >Clear</button>
         <div>Generation: {this.props.generation}</div>
       </div>
       /*

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Cell from './Cell';
 import styled from 'styled-components';
-import { connect } from 'react-redux';
 
 const BoardContainer = styled.div`
   display: flex;
@@ -18,15 +17,20 @@ class Board extends Component {
   /*
   constructor(props) {
     super(props);
+    this.state = {
+      board: props.board
+    }
   }
   */
   render() {
-    let {isRunning, onClick} = this.props
+    let {board, isRunning, onClick, toggleUpdateState} = this.props
     console.log('*board re-render*')
+    console.log(this.props.board)
+    //console.log('**')
     return (
       <BoardContainer>
-        {this.props.board.map((cell, index) => (
-          <Cell isAlive={cell} id={index} isRunning={isRunning} onClick={onClick} />
+        {board.map((cell, index) => (
+          <Cell isAlive={cell} id={index} isRunning={isRunning} onClick={onClick} toggleUpdateState={toggleUpdateState}/*generation={generation}*/ />
         ))}
       </BoardContainer>
     );
@@ -38,6 +42,4 @@ const mapStateToProps = state => ({
   board: state.board
 });
 */
-export default connect(
-  //mapStateToProps
-)(Board);
+export default Board;
