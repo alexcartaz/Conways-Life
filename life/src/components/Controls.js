@@ -1,20 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-const ControlsContainer = styled.div`
-  border: .5px solid red;
-  flex-direction: row;
-  width: 500px;
-  height: 100%;
-  background-color: white;
-  margin: 0 auto;
-  flex-wrap: wrap;
-`;
-
-const Iterate = styled.button`
-  background-color: white;
-`;
-
 class Controls extends Component {
  
   handleRandomInitClick = event => {
@@ -47,8 +33,6 @@ class Controls extends Component {
 
   render() {
     return(
-      //<Iterate />
-      //// <button onClick={event => this.iterateClick(event)} >Iterate</button>
       <div>
         <button onClick={event => this.handleRandomInitClick(event)} >Random Init</button>
         <button onClick={event => this.handleIterateClick(event)} >Iterate</button>
@@ -57,12 +41,6 @@ class Controls extends Component {
         <button onClick={event => this.handleStopClick(event)} >Stop</button>
         <div>Generation: {this.props.generation}</div>
       </div>
-      /*
-      <Start />
-      <Stop />
-      <Clear />
-      */
-      /*<Speed />*/
     );
   }
 }

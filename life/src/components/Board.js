@@ -12,7 +12,6 @@ const BoardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-//function Board ({board, isRunning, onClick}) {
 class Board extends Component {
   
   componentDidUpdate() {
@@ -27,7 +26,7 @@ class Board extends Component {
   }
   
   render() {
-    let {board, isRunning, onClick, toggleUpdateState, delay} = this.props
+    let {board, isRunning, onClick, toggleUpdateState} = this.props
     console.log('*board re-render*')
     console.log(this.props.board)
     //console.log('**')
@@ -40,10 +39,5 @@ class Board extends Component {
     );
   }
 }
-//I don't think mapStateToProps is necessary here since on <Cell> and <Controls> modify board
-/*
-const mapStateToProps = state => ({
-  board: state.board
-});
-*/
+
 export default Board;

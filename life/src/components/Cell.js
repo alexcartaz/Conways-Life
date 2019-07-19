@@ -37,7 +37,6 @@ const LifeCellDead = styled.div`
   background-color : black;
 `;
 
-//pure component (import pure component)
 class Cell extends Component {
 
   constructor(props) {
@@ -59,8 +58,7 @@ class Cell extends Component {
     return null
   }
   
-
-
+  //revist why using generation over toggle doesn't work
   handler = () => {
     if(this.props.isRunning === false){
       this.setState(prevState => {
@@ -72,7 +70,7 @@ class Cell extends Component {
       this.props.onClick(this.props.id)
     }
   };
-  //<LifeCell id={this.props.id} isAlive={this.state.isAlive} onClick={this.handler}  />
+ 
   render() {
     if (this.state.isAlive === true){
       return(
