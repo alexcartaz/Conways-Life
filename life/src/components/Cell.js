@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 
 const LifeCell = styled.div`
   border: .5px solid black;
   width: 9px;
   height: 9px;
+  border-radius: 25%;
   background-color : ${props => {
-    //console.log(props)
-    //const isAlive = props.isAlive ;
     //I don't fully understand how passing values into this works
     if(props.isAlive === true){
       return 'green';
@@ -16,36 +16,49 @@ const LifeCell = styled.div`
     }
   }};
 `;
-
-class Cell extends Component {
+//pure component (import pure component)
+class Cell extends PureComponent {
 
   constructor(props) {
     super(props);
     this.state = {
-      currentState: props.isAlive,
-      id: props.id,
-      board: props.board
+      isAlive: props.isAlive,
+      isAliveProp: props.isAlive
     };
   }
 
-  handleClick = event => {
+  //this is called before rendering.
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isAlive !== prevState.isAliveProp){
+      return {
+        isAlive: nextProps.isAlive,
+        isAliveProp: nextProps.isAlive
+      }
+    }
+    return null
+  }
+  
+  handler = () => {
     if(this.props.isRunning === false){
-      //if i don't set state here (and only update MapStateToProps value board, 
-      //UI doesnt update and I dont rememebr why)
-      this.setState({
-       currentState: !this.state.currentState
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          isAlive: !prevState.isAlive
+        }
       });
-      let board = this.state.board
-      board[this.state.id] = !board[this.state.id]
-      this.props.toggleCellUpdate(board);
+      this.props.onClick(this.props.id)
     }
   };
 
   render() {
+    console.log(this.props.id)
     return(
-      <LifeCell isAlive = {this.state.currentState} onClick={event => this.handleClick(event)} />
+      //onClick={ () => this.props.onClick(this.props.id) 
+      /*<LifeCell id={this.props.id} isAlive={this.props.isAlive} onClick={event => this.handleClick(event)} />*/
+      //this.handler(this.props.id, this.props.onClick)
+      <LifeCell id={this.props.id} isAlive={this.state.isAlive} onClick={this.handler}  />
     )
   }
-}
+};
 
 export default Cell;

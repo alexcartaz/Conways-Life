@@ -18,7 +18,6 @@ function initBoard(){
       board[c] = false
     }
   }
-  console.log(board)
   return board
 }
 
@@ -32,7 +31,6 @@ const initState = {
 }
 
 const reducer = (state = initState, action) => {
-  console.log(action.payload)
   switch (action.type){
     case START_ITERATE_BOARD:
       return {
@@ -42,7 +40,7 @@ const reducer = (state = initState, action) => {
     case ITERATE_BOARD:
       return {
         ...state,
-        board: action.payload.board,
+        board: action.payload.board.concat([]),
         generation: action.payload.generation,
         iterating: false,
         error: null
