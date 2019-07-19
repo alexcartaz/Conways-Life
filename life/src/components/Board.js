@@ -14,23 +14,27 @@ const BoardContainer = styled.div`
 
 //function Board ({board, isRunning, onClick}) {
 class Board extends Component {
-  /*
-  constructor(props) {
-    super(props);
-    this.state = {
-      board: props.board
+  
+  componentDidUpdate() {
+    console.log('component did update')
+    console.log('isRunning: ' + this.props.isRunning)
+    if(this.props.isRunning){
+      setTimeout( () => {
+        console.log(this.props)
+        this.props.triggerIterate()
+      }, this.props.delay);
     }
   }
-  */
+  
   render() {
-    let {board, isRunning, onClick, toggleUpdateState} = this.props
+    let {board, isRunning, onClick, toggleUpdateState, delay} = this.props
     console.log('*board re-render*')
     console.log(this.props.board)
     //console.log('**')
     return (
       <BoardContainer>
         {board.map((cell, index) => (
-          <Cell isAlive={cell} id={index} isRunning={isRunning} onClick={onClick} toggleUpdateState={toggleUpdateState}/*generation={generation}*/ />
+          <Cell isAlive={cell} id={index} isRunning={isRunning} onClick={onClick} toggleUpdateState={toggleUpdateState} />
         ))}
       </BoardContainer>
     );

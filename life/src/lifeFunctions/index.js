@@ -74,6 +74,7 @@ function determineNumberOfAliveNeighbors(board, index){
 
 export function iterateGeneration(board){
   let newBoard = []
+  let didChange = false
   for (let c = 0; c < 2500; c++){
     let numNeighbors = determineNumberOfAliveNeighbors(board, c)
     
@@ -84,8 +85,13 @@ export function iterateGeneration(board){
     }else{
       newBoard[c] = false
     }
+    if(!didChange){
+      if(newBoard[c] !== board[c]){
+        didChange = true
+      }
+    }
   }
-  return newBoard
+  return { newBoard , didChange }
 }
 
 export function initBoard(){

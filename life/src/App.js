@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import Board from './components/Board';
 import Controls from './components/Controls';
-//import { iterateBoard } from './actions/';
 import { initBoard, iterateGeneration , clearBoard } from './lifeFunctions/';
 
 class App extends Component {
@@ -12,11 +11,13 @@ class App extends Component {
     this.boardIterate = this.boardIterate.bind(this);
     this.boardClear = this.boardClear.bind(this);
     this.boardRandomInit = this.boardRandomInit.bind(this);
+    this.startRun = this.startRun.bind(this);
+    this.endRun = this.endRun.bind(this);
     this.state = {
       //board: initBoard(),
       isRunning: false,
       board: initBoard(),
-      delay: 2, //ms
+      delay: 200, //ms
       generation: 0,
       iterating: false,
       toggleUpdateState: false,
@@ -52,16 +53,18 @@ class App extends Component {
 
   boardIterate(){
     console.log('*iterating*')
-    let newBoard = iterateGeneration(this.currentBoard)
+    let { newBoard, didChange } = iterateGeneration(this.currentBoard)
     this.currentBoard = newBoard
     this.setState(prevState => {
       return {
         ...prevState,
         generation: prevState.generation + 1,
         board: newBoard.concat([]),
-        toggleUpdateState: !prevState.toggleUpdateState
+        toggleUpdateState: !prevState.toggleUpdateState,
+        isRunning: didChange
       };
     });
+
   }
 
   boardRandomInit(){
@@ -78,6 +81,28 @@ class App extends Component {
     });
   }
 
+  startRun(){
+    console.log('*start run*')
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        isRunning: true
+      };
+    });
+  }
+
+  endRun(){
+    console.log('*end run*')
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        isRunning: false
+      };
+    });
+  }
+
+
+
   //need code here to surpress entire board refresh and manage new cell appearance with toggle state 
   //<Controls board={this.props.board} generation={generation} isRunning={isRunning} delay={delay} onIterateClick={this.onIterateClick} />
       
@@ -85,8 +110,24 @@ class App extends Component {
     let {board, isRunning, generation, delay, toggleUpdateState} = this.state
     return (
       <div className="App">
-        <Board board={board} isRunning={isRunning} onClick={this.onCellClick} toggleUpdateState={toggleUpdateState} />
-        <Controls board={board} generation={generation} isRunning={isRunning} delay={delay} onRandomInitClick={this.boardRandomInit} onIterateClick={this.boardIterate} onClearClick={this.boardClear} />
+        <Board 
+          board={board} 
+          isRunning={isRunning} 
+          onClick={this.onCellClick} 
+          toggleUpdateState={toggleUpdateState} 
+          triggerIterate={this.boardIterate}
+        />
+        <Controls 
+          board={board} 
+          generation={generation} 
+          isRunning={isRunning} 
+          delay={delay} 
+          onRandomInitClick={this.boardRandomInit} 
+          onIterateClick={this.boardIterate} 
+          onClearClick={this.boardClear}
+          onRunClick={this.startRun} 
+          onStopClick={this.endRun}
+        />
       </div>
     );
   }

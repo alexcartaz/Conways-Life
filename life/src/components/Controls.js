@@ -35,6 +35,16 @@ class Controls extends Component {
     }
   };
 
+  handleRunClick = event => {
+    if(this.props.isRunning === false){
+      this.props.onRunClick()
+    }
+  };
+
+  handleStopClick = event => {
+    this.props.onStopClick()
+  };
+
   render() {
     return(
       //<Iterate />
@@ -43,6 +53,8 @@ class Controls extends Component {
         <button onClick={event => this.handleRandomInitClick(event)} >Random Init</button>
         <button onClick={event => this.handleIterateClick(event)} >Iterate</button>
         <button onClick={event => this.handleClearClick(event)} >Clear</button>
+        <button onClick={event => this.handleRunClick(event)} >Run</button>
+        <button onClick={event => this.handleStopClick(event)} >Stop</button>
         <div>Generation: {this.props.generation}</div>
       </div>
       /*
